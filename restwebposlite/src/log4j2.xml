@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+	<Properties>
+		<Property name="basePath">C:/projects/log</Property>
+		<Property name="appName">restwebpos</Property>
+		<Property name="patternStd">%d [%-5p] %C (%F:%L) - %m%n</Property>
+		<Property name="patternFile">%d [%-5p] %C (%F:%L) - %m%n</Property>
+	</Properties>
+	<Appenders>
+		<RollingFile name="all" fileName="${basePath}/${appName}/all.log" filePattern="${basePath}/${appName}/all.%i.log.zip">
+			<PatternLayout pattern="${patternFile}" />
+			<Policies>
+				<SizeBasedTriggeringPolicy size="10 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="2" compressionLevel="9" />
+		</RollingFile>
+		<RollingFile name="default" fileName="${basePath}/${appName}/default.log" filePattern="${basePath}/${appName}/default.%i.log.zip">
+			<PatternLayout pattern="${patternFile}" />
+			<Policies>
+				<SizeBasedTriggeringPolicy size="10 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="2" compressionLevel="9" />
+		</RollingFile>
+		<!-- <RollingFile name="hibernate-debug" fileName="${basePath}/${appName}/hibernate.debug.log" filePattern="${basePath}/${appName}/hibernate.debug.%i.log.zip">
+			<PatternLayout pattern="${patternFile}" />
+			<Policies>
+				<SizeBasedTriggeringPolicy size="10 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="1" compressionLevel="9" />
+		</RollingFile> -->
+		<!-- <RollingFile name="hibernate-info" fileName="${basePath}/${appName}/hibernate.info.log" filePattern="${basePath}/${appName}/hibernate.info.%i.log.zip">
+			<PatternLayout pattern="${patternFile}" />
+			<Policies>
+				<SizeBasedTriggeringPolicy size="10 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="1" compressionLevel="9" />
+		</RollingFile> -->
+		<RollingFile name="spring-info" fileName="${basePath}/${appName}/spring.info.log" filePattern="${basePath}/${appName}/spring.info.%i.log.zip">
+			<PatternLayout pattern="${patternFile}" />
+			<Policies>
+				<SizeBasedTriggeringPolicy size="10 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="1" compressionLevel="9" />
+		</RollingFile>
+		<Console name="STDOUT" target="SYSTEM_OUT">
+			<PatternLayout pattern="${patternStd}" />
+		</Console>
+	</Appenders>
+	<Loggers>
+		<Logger name="com.sharobi.webpos" level="debug">
+			<AppenderRef ref="STDOUT" />
+			<AppenderRef ref="default" />
+		</Logger>
+		<Logger name="org.springframework" level="debug">
+			<AppenderRef ref="STDOUT" />
+			<AppenderRef ref="spring-info" />
+		</Logger>
+		<Root level="debug">
+			<AppenderRef ref="all" />
+		</Root>
+	</Loggers>
+</Configuration>
